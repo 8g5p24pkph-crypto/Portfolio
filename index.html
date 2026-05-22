@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sebastian Xue Estevez — Cloud & Operations Leader</title>
+<style>
+  :root {
+    --black: #000000;
+    --near-black: #0a0a0a;
+    --dark: #111111;
+    --card: #161616;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.18);
+    --white: #f5f5f7;
+    --muted: #86868b;
+    --accent: #2997ff;
+    --accent-glow: rgba(41,151,255,0.15);
+    --green: #30d158;
+    --amber: #ffd60a;
+    --font: -apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 52px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 15px; font-weight: 500; letter-spacing: -0.3px; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; color: var(--muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    font-size: 13px; color: var(--accent); text-decoration: none;
+    border: 0.5px solid var(--accent); padding: 5px 14px; border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent); color: #000; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(41,151,255,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, rgba(48,209,88,0.05) 0%, transparent 60%);
+  }
+  .hero-eyebrow {
+    font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-name {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700; letter-spacing: -3px; line-height: 1.0;
+    color: var(--white); position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-tagline {
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 300; color: var(--muted); margin-top: 20px;
+    max-width: 620px; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-badges {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    margin-top: 32px; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .badge {
+    font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+    border: 0.5px solid var(--border-hover); color: var(--muted);
+    background: rgba(255,255,255,0.04);
+  }
+  .badge.highlight { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+  .hero-ctas {
+    display: flex; gap: 14px; margin-top: 44px; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.8s 1.0s forwards;
+  }
+  .btn-primary {
+    font-size: 15px; font-weight: 500; padding: 13px 28px; border-radius: 30px;
+    background: var(--accent); color: #000; text-decoration: none; border: none;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #5aabff; transform: scale(1.02); }
+  .btn-ghost {
+    font-size: 15px; font-weight: 500; padding: 13px 28px; border-radius: 30px;
+    background: transparent; color: var(--accent); text-decoration: none;
+    border: 0.5px solid var(--accent); transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--accent-glow); }
+  .hero-scroll {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    z-index: 1; opacity: 0; animation: fadeUp 0.8s 1.4s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--muted));
+    margin: 0 auto;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── VIDEO SECTION ── */
+  #intro {
+    padding: 100px 5%;
+    display: flex; align-items: center; gap: 60px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .intro-text { flex: 1; }
+  .section-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; letter-spacing: -1.5px; line-height: 1.1;
+    color: var(--white); margin-bottom: 20px;
+  }
+  .section-body {
+    font-size: 17px; color: var(--muted); line-height: 1.75; max-width: 520px;
+  }
+  .video-wrapper {
+    flex: 1; border-radius: 18px; overflow: hidden;
+    border: 0.5px solid var(--border);
+    background: var(--card);
+    position: relative;
+    min-width: 0;
+    padding-top: 56.25%;
+  }
+  .video-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+  .play-btn {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--accent); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: transform 0.2s, background 0.2s;
+  }
+  .play-btn:hover { transform: scale(1.1); background: #5aabff; }
+  .play-btn svg { margin-left: 4px; }
+  .video-label { font-size: 14px; color: var(--muted); }
+
+  /* ── STATS ── */
+  #stats {
+    padding: 80px 5%;
+    background: var(--near-black);
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    max-width: 1100px; margin: 0 auto;
+    border: 0.5px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+  }
+  .stat-card {
+    padding: 40px 30px;
+    background: var(--dark);
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat-card:hover { background: var(--card); }
+  .stat-num {
+    font-size: 48px; font-weight: 700; letter-spacing: -2px;
+    color: var(--white); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+  /* ── SKILLS ── */
+  #skills { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px; margin-top: 60px;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 18px; padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .skill-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+  .skill-card-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 16px;
+  }
+  .skill-card-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--white); }
+  .skill-card-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .skill-tag {
+    font-size: 11px; padding: 3px 10px; border-radius: 10px;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+    border: 0.5px solid var(--border);
+  }
+
+  /* ── LABS ── */
+  #labs {
+    padding: 100px 5%;
+    background: var(--near-black);
+    border-top: 0.5px solid var(--border);
+  }
+  .labs-inner { max-width: 1200px; margin: 0 auto; }
+  .labs-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+  .domain-filter {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+    background: transparent; color: var(--muted);
+    border: 0.5px solid var(--border); cursor: pointer;
+    transition: all 0.15s; font-family: var(--font);
+  }
+  .filter-btn:hover { border-color: var(--border-hover); color: var(--white); }
+  .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+  .labs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .lab-card {
+    background: var(--dark);
+    border: 0.5px solid var(--border);
+    border-radius: 14px; padding: 22px;
+    transition: all 0.2s; cursor: default;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .lab-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    background: var(--card);
+  }
+  .lab-domain-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 8px; display: inline-block;
+    width: fit-content;
+  }
+  .lab-title { font-size: 14px; font-weight: 500; color: var(--white); line-height: 1.4; }
+  .lab-type-badge {
+    font-size: 11px; padding: 3px 9px; border-radius: 8px;
+    width: fit-content; margin-top: auto;
+  }
+  .type-sandbox { background: rgba(41,151,255,0.12); color: #5aabff; }
+  .type-core { background: rgba(255,255,255,0.06); color: var(--muted); }
+  .type-troubleshoot { background: rgba(255,214,10,0.1); color: var(--amber); }
+  .type-pro { background: rgba(48,209,88,0.1); color: var(--green); }
+
+  /* domain colors */
+  .d-compute { background: rgba(41,151,255,0.12); color: #5aabff; }
+  .d-storage { background: rgba(48,209,88,0.12); color: var(--green); }
+  .d-security { background: rgba(255,55,95,0.1); color: #ff375f; }
+  .d-network { background: rgba(191,90,242,0.12); color: #bf5af2; }
+  .d-database { background: rgba(255,214,10,0.1); color: var(--amber); }
+  .d-mgmt { background: rgba(255,159,10,0.1); color: #ff9f0a; }
+  .d-containers { background: rgba(100,210,255,0.1); color: #64d2ff; }
+  .d-appint { background: rgba(255,255,255,0.08); color: var(--muted); }
+
+  /* ── EXPERIENCE ── */
+  #experience { padding: 100px 5%; max-width: 900px; margin: 0 auto; }
+  .timeline { margin-top: 60px; position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item {
+    padding-left: 32px; padding-bottom: 52px; position: relative;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -4px; top: 6px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--black);
+  }
+  .timeline-date { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .timeline-role { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: var(--white); }
+  .timeline-company { font-size: 14px; color: var(--accent); margin-bottom: 14px; }
+  .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .timeline-bullets li {
+    font-size: 14px; color: var(--muted); line-height: 1.6; padding-left: 16px; position: relative;
+  }
+  .timeline-bullets li::before {
+    content: '—'; position: absolute; left: 0; color: var(--border-hover);
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certs {
+    padding: 80px 5%;
+    background: var(--near-black);
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .certs-inner { max-width: 1100px; margin: 0 auto; }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px; margin-top: 48px;
+  }
+  .cert-card {
+    background: var(--dark); border: 0.5px solid var(--border);
+    border-radius: 18px; padding: 28px;
+    display: flex; align-items: center; gap: 18px;
+    transition: all 0.2s;
+  }
+  .cert-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+  .cert-icon {
+    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .cert-name { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .cert-issuer { font-size: 12px; color: var(--muted); }
+
+  /* ── TOOLS ── */
+  #tools { padding: 80px 5%; max-width: 1000px; margin: 0 auto; }
+  .tools-grid {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 48px;
+  }
+  .tool-pill {
+    font-size: 13px; padding: 8px 18px; border-radius: 20px;
+    background: var(--card); border: 0.5px solid var(--border);
+    color: var(--muted); transition: all 0.2s;
+  }
+  .tool-pill:hover { border-color: var(--accent); color: var(--white); background: var(--accent-glow); }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 120px 5%;
+    text-align: center;
+    background: var(--dark);
+    border-top: 0.5px solid var(--border);
+  }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-title {
+    font-size: clamp(36px, 5vw, 60px); font-weight: 700;
+    letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px;
+  }
+  .contact-sub { font-size: 18px; color: var(--muted); margin-bottom: 44px; line-height: 1.6; }
+  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .contact-link {
+    font-size: 15px; font-weight: 500; padding: 13px 28px; border-radius: 30px;
+    text-decoration: none; transition: all 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .contact-link.primary { background: var(--accent); color: #000; }
+  .contact-link.primary:hover { background: #5aabff; }
+  .contact-link.secondary {
+    background: transparent; color: var(--white);
+    border: 0.5px solid var(--border-hover);
+  }
+  .contact-link.secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 5%;
+    border-top: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+    gap: 12px;
+  }
+  .footer-name { font-size: 13px; color: var(--muted); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--white); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    #intro { flex-direction: column; }
+    .nav-links { display: none; }
+    .labs-header { flex-direction: column; align-items: flex-start; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Sebastian Xue Estevez</a>
+  <ul class="nav-links">
+    <li><a href="#intro">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#labs">Labs</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="https://linkedin.com/in/xueestevez" target="_blank" rel="noopener">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">Cloud &amp; Operations Leader</p>
+  <h1 class="hero-name">Sebastian<br><span>Xue</span> Estevez</h1>
+  <p class="hero-tagline">I build teams that perform, cultures that stick, and systems that scale.</p>
+  <div class="hero-badges">
+    <span class="badge highlight">AWS re/Start</span>
+    <span class="badge highlight">CLF-C02</span>
+    <span class="badge">Lean Six Sigma Green Belt</span>
+    <span class="badge">16+ Years Operations</span>
+    <span class="badge">EN / ES Bilingual</span>
+  </div>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="#labs">View My Labs</a>
+    <a class="btn-ghost" href="https://linkedin.com/in/xueestevez" target="_blank" rel="noopener">Contact Me</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- INTRO + VIDEO -->
+<section id="intro">
+  <div class="intro-text reveal">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Operations leader<br>going cloud-native.</h2>
+    <p class="section-body">
+      With 16+ years leading large-scale contact center operations — managing up to 180 indirect reports across domestic and international hubs — I'm now translating that systems-thinking and leadership expertise into the cloud. Currently completing AWS re/Start at Per Scholas, covering Cloud Computing, Networking, Databases, and AWS Management & Governance. Lean Six Sigma Green Belt. Bilingual in English and Spanish.
+    </p>
+    <div class="hero-badges" style="justify-content:flex-start; margin-top:24px;">
+      <span class="badge">Seattle, WA</span>
+      <span class="badge">Open to Work</span>
+      <span class="badge">On-site · Hybrid · Remote</span>
+    </div>
+  </div>
+  <div class="reveal reveal-delay-2" style="flex:1;min-width:0;position:relative;padding-top:56.25%;border-radius:18px;overflow:hidden;border:0.5px solid var(--border);">
+    <iframe
+      src="https://www.youtube.com/embed/qp0HIF3SfI4"
+      title="Simon Sinek — How Great Leaders Inspire Action"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position:absolute;inset:0;width:100%;height:100%;">
+    </iframe>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <div class="stat-num">16<span>+</span></div>
+      <div class="stat-desc">Years leading<br>contact center operations</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-1">
+      <div class="stat-num">180</div>
+      <div class="stat-desc">Indirect reports<br>at peak team size</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-2">
+      <div class="stat-num">4.9</div>
+      <div class="stat-desc">CSAT score achieved<br>(from 4.7 baseline)</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-3">
+      <div class="stat-num">86<span>%</span></div>
+      <div class="stat-desc">NPS achieved<br>(from 65% baseline)</div>
+    </div>
+    <div class="stat-card reveal">
+      <div class="stat-num">90<span>%</span></div>
+      <div class="stat-desc">QA score raised<br>(from 60% baseline)</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-1">
+      <div class="stat-num">27</div>
+      <div class="stat-desc">AWS hands-on<br>labs completed</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <p class="section-label">What I bring</p>
+    <h2 class="section-title">Skills &amp; expertise</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal reveal-delay-1">
+      <div class="skill-card-icon" style="background:rgba(41,151,255,0.12)">☁️</div>
+      <div class="skill-card-title">AWS Cloud</div>
+      <div class="skill-card-body">Hands-on experience with EC2, S3, VPC, RDS, DynamoDB, IAM, CloudTrail, CloudFront, Lambda concepts, and more through 27 sandbox labs.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">EC2</span><span class="skill-tag">S3</span><span class="skill-tag">IAM</span>
+        <span class="skill-tag">VPC</span><span class="skill-tag">RDS</span><span class="skill-tag">DynamoDB</span>
+        <span class="skill-tag">CloudFront</span><span class="skill-tag">SNS</span><span class="skill-tag">ECS</span>
+      </div>
+    </div>
+    <div class="skill-card reveal reveal-delay-2">
+      <div class="skill-card-icon" style="background:rgba(48,209,88,0.12)">📊</div>
+      <div class="skill-card-title">Operations &amp; Leadership</div>
+      <div class="skill-card-body">16+ years driving performance at scale. Expert at coaching supervisors, building accountability systems, and sustaining operational excellence across large teams.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">CSAT / NPS</span><span class="skill-tag">QA & Calibration</span>
+        <span class="skill-tag">Workforce Planning</span><span class="skill-tag">Escalation Mgmt</span>
+      </div>
+    </div>
+    <div class="skill-card reveal reveal-delay-3">
+      <div class="skill-card-icon" style="background:rgba(255,214,10,0.1)">⚙️</div>
+      <div class="skill-card-title">Lean Six Sigma</div>
+      <div class="skill-card-body">Green Belt certified. Applied DMAIC methodology to lift CSAT from 4.7→4.9, NPS from 65%→86%, and QA from 60%→90% at Asurion.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">DMAIC</span><span class="skill-tag">Root Cause Analysis</span>
+        <span class="skill-tag">Process Improvement</span><span class="skill-tag">KPI Frameworks</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-card-icon" style="background:rgba(191,90,242,0.12)">🔒</div>
+      <div class="skill-card-title">Cloud Security &amp; Compliance</div>
+      <div class="skill-card-body">Practical experience with IAM policies &amp; roles, GuardDuty, Inspector, AWS Config, CloudTrail, Cognito, and the AWS shared responsibility model.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">IAM</span><span class="skill-tag">GuardDuty</span>
+        <span class="skill-tag">AWS Config</span><span class="skill-tag">CloudTrail</span><span class="skill-tag">Inspector</span>
+      </div>
+    </div>
+    <div class="skill-card reveal reveal-delay-1">
+      <div class="skill-card-icon" style="background:rgba(255,55,95,0.1)">🌐</div>
+      <div class="skill-card-title">Networking &amp; Infrastructure</div>
+      <div class="skill-card-body">Built VPCs from scratch with public/private subnets, NAT gateways, flow logs, and layered security. Hands-on with CloudFront, EFS, and load balancers.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">VPC</span><span class="skill-tag">Subnets</span><span class="skill-tag">NAT Gateway</span>
+        <span class="skill-tag">CloudFront</span><span class="skill-tag">ALB</span><span class="skill-tag">EFS</span>
+      </div>
+    </div>
+    <div class="skill-card reveal reveal-delay-2">
+      <div class="skill-card-icon" style="background:rgba(100,210,255,0.1)">💬</div>
+      <div class="skill-card-title">Communication &amp; Language</div>
+      <div class="skill-card-body">Native bilingual in English and Spanish. Experienced leading international teams across the US and Bogotá, Colombia with clear cross-cultural communication.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">English (Native)</span><span class="skill-tag">Spanish (Native)</span>
+        <span class="skill-tag">Executive Reporting</span><span class="skill-tag">Multi-Hub Leadership</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LABS -->
+<section id="labs">
+  <div class="labs-inner">
+    <div class="labs-header">
+      <div class="reveal">
+        <p class="section-label">Hands-on work</p>
+        <h2 class="section-title">AWS lab projects</h2>
+      </div>
+      <div class="domain-filter reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="compute">Compute</button>
+        <button class="filter-btn" data-filter="storage">Storage</button>
+        <button class="filter-btn" data-filter="security">Security</button>
+        <button class="filter-btn" data-filter="network">Network</button>
+        <button class="filter-btn" data-filter="database">Database</button>
+        <button class="filter-btn" data-filter="mgmt">Management</button>
+      </div>
+    </div>
+    <div class="labs-grid" id="labsGrid"></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="reveal">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Professional experience</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">Mar 2014 – Present · 11+ years</div>
+      <div class="timeline-role">Operations Manager</div>
+      <div class="timeline-company">Asurion — Remote</div>
+      <ul class="timeline-bullets">
+        <li>Managed 9 supervisors overseeing 135–180 indirect reports across Nashville, Houston, Las Vegas, Phoenix, and Bogotá, Colombia.</li>
+        <li>Drove $156K–$208K/month in recurring revenue from 5,400–7,200 subscription sales across the team.</li>
+        <li>Raised QA scores from 60% to 90% through structured coaching, calibration, and supervisor development programs.</li>
+        <li>Lifted CSAT from 4.7 to 4.9/5 and NPS from 65% to 86% using Lean Six Sigma DMAIC methodology.</li>
+        <li>Maintained team attrition consistently below 3% in partnership with Workforce Management, Training, and HR.</li>
+        <li>Earned multiple Manager of the Quarter awards and #1 monthly ranking across the leadership group.</li>
+      </ul>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">Jun 2010 – Dec 2013</div>
+      <div class="timeline-role">Commercial Account Manager</div>
+      <div class="timeline-company">Bothell Parts House — Bothell, WA</div>
+      <ul class="timeline-bullets">
+        <li>Managed 15–20 commercial automotive accounts generating $15K–$30K in monthly revenue each.</li>
+        <li>Achieved 100% account retention through proactive relationship management and rapid issue resolution.</li>
+        <li>Tracked sales pipeline and account activity via CRM while maintaining accurate revenue forecasting.</li>
+      </ul>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">Jan 2008 – Mar 2010</div>
+      <div class="timeline-role">First Assistant Manager</div>
+      <div class="timeline-company">Shuck's Auto — Shoreline, WA</div>
+      <ul class="timeline-bullets">
+        <li>Supervised daily store operations and a team of 8–12 associates, driving consistent service delivery and sales performance.</li>
+        <li>Managed inventory replenishment, vendor coordination, and loss prevention.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="certs-inner">
+    <div class="reveal">
+      <p class="section-label">Credentials</p>
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon" style="background:rgba(255,153,0,0.12); font-size:28px">☁️</div>
+        <div>
+          <div class="cert-name">AWS re/Start</div>
+          <div class="cert-issuer">Per Scholas · Cloud Computing, Networking, Databases, Monitoring &amp; Governance</div>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon" style="background:rgba(48,209,88,0.12); font-size:28px">⚙️</div>
+        <div>
+          <div class="cert-name">Lean Six Sigma Green Belt</div>
+          <div class="cert-issuer">Asurion · DMAIC methodology &amp; continuous improvement</div>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-icon" style="background:rgba(41,151,255,0.12); font-size:28px">🎓</div>
+        <div>
+          <div class="cert-name">Computer Science Coursework</div>
+          <div class="cert-issuer">North Seattle College</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="reveal">
+    <p class="section-label">Technology</p>
+    <h2 class="section-title">Tools &amp; platforms</h2>
+  </div>
+  <div class="tools-grid reveal reveal-delay-1">
+    <span class="tool-pill">AWS Cloud Services</span>
+    <span class="tool-pill">EC2 / S3 / VPC</span>
+    <span class="tool-pill">IAM / GuardDuty</span>
+    <span class="tool-pill">RDS / DynamoDB</span>
+    <span class="tool-pill">CloudTrail / Config</span>
+    <span class="tool-pill">CloudFront / ECS</span>
+    <span class="tool-pill">Linux CLI</span>
+    <span class="tool-pill">Power BI</span>
+    <span class="tool-pill">Excel</span>
+    <span class="tool-pill">PowerPoint</span>
+    <span class="tool-pill">Twilio</span>
+    <span class="tool-pill">ObserveAI</span>
+    <span class="tool-pill">UKG Workforce Mgmt</span>
+    <span class="tool-pill">Aspect Workforce Mgmt</span>
+    <span class="tool-pill">Citrix</span>
+    <span class="tool-pill">SharePoint</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <h2 class="contact-title">Let's build<br>something together.</h2>
+    <p class="contact-sub">Open to cloud, operations, and technical leadership roles. On-site, hybrid, or remote across the United States.</p>
+    <div class="contact-links">
+      <a class="contact-link primary" href="https://linkedin.com/in/xueestevez" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        Connect on LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">© 2025 Sebastian Xue Estevez</span>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/xueestevez" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="#hero">Back to top</a>
+  </div>
+</footer>
+
+<script>
+const labs = [
+  // Compute
+  {title:"Introduction to Amazon EC2",domain:"compute",type:"sandbox"},
+  {title:"Create, Stop, Start, Reboot and Terminate EC2 instances",domain:"compute",type:"sandbox"},
+  {title:"Allocating Elastic IP and Associating to EC2",domain:"compute",type:"sandbox"},
+  {title:"Creating AMI From EC2 Instance",domain:"compute",type:"sandbox"},
+  {title:"Connect to Windows EC2 via Remote Desktop",domain:"compute",type:"sandbox"},
+  {title:"SSH into EC2 Instance with Lost Key Pair",domain:"compute",type:"sandbox"},
+  {title:"Launch a Spot Instance with Amazon EC2",domain:"compute",type:"core"},
+  {title:"Introduction to Amazon Auto Scaling",domain:"compute",type:"sandbox"},
+  {title:"Enable Sticky Sessions in Application Load Balancer",domain:"compute",type:"sandbox"},
+  {title:"Fault-Tolerant Elastic Beanstalk with Deployment Policies",domain:"compute",type:"core"},
+  {title:"Build a WordPress Website Using AWS Console",domain:"compute",type:"sandbox"},
+  {title:"Set Up a Free VPN Server in AWS",domain:"compute",type:"core"},
+  // Storage
+  {title:"Introduction to Amazon S3",domain:"storage",type:"sandbox"},
+  {title:"Host a Static Website Using Amazon S3",domain:"storage",type:"sandbox"},
+  {title:"Enable Versioning in Amazon S3",domain:"storage",type:"sandbox"},
+  {title:"Create an S3 Lifecycle Policy",domain:"storage",type:"sandbox"},
+  {title:"Cross Region Replication and Versioning in S3",domain:"storage",type:"sandbox"},
+  {title:"S3 Transfer Acceleration Speed Comparison",domain:"storage",type:"sandbox"},
+  {title:"Generate S3 Presigned URL Using CloudShell",domain:"storage",type:"core"},
+  {title:"Mount Elastic File System (EFS) on EC2",domain:"storage",type:"core"},
+  {title:"Introduction to Amazon CloudFront",domain:"storage",type:"troubleshoot"},
+  // Security
+  {title:"Introduction to AWS IAM",domain:"security",type:"sandbox"},
+  {title:"Creating IAM Policies",domain:"security",type:"core"},
+  {title:"Creating IAM Roles",domain:"security",type:"core"},
+  {title:"Creating a User Pool in AWS Cognito",domain:"security",type:"sandbox"},
+  {title:"AWS Directory Service — Working with Simple AD",domain:"security",type:"core"},
+  {title:"Introduction to Amazon GuardDuty",domain:"security",type:"core"},
+  {title:"Find EC2 Vulnerabilities Using Amazon Inspector",domain:"security",type:"sandbox"},
+  {title:"Security Group Compliance via AWS Config",domain:"security",type:"core"},
+  // Network
+  {title:"Build Amazon VPC with Public and Private Subnets",domain:"network",type:"sandbox"},
+  {title:"Layered Security in an AWS VPC",domain:"network",type:"sandbox"},
+  {title:"Creating NAT Gateways in AWS",domain:"network",type:"core"},
+  {title:"VPC Flow Logs and Traffic Generation",domain:"network",type:"core"},
+  {title:"CloudFront Origin Groups",domain:"network",type:"core"},
+  // Database
+  {title:"Introduction to AWS RDS",domain:"database",type:"sandbox"},
+  {title:"RDS Multi-AZ, Read Replica & Failover Simulation",domain:"database",type:"core"},
+  {title:"Creating DynamoDB Table and Adding Items",domain:"database",type:"sandbox"},
+  {title:"DynamoDB Table Operations via NoSQL Workbench",domain:"database",type:"core"},
+  // Management
+  {title:"Configuring CloudTrail Logs for EC2 Events",domain:"mgmt",type:"sandbox"},
+  {title:"Check AWS Resources in Trusted Advisor",domain:"mgmt",type:"core"},
+  {title:"Security Group Compliance Using AWS Config",domain:"mgmt",type:"core"},
+  // Containers
+  {title:"Load Balancing Containers via ALB in ECS",domain:"containers",type:"pro"},
+  // App Integration
+  {title:"SNS Topics, Subscriptions, and S3 Event Triggers",domain:"appint",type:"sandbox"},
+];
+
+const domainMeta = {
+  compute:  {label:"Compute",   cls:"d-compute"},
+  storage:  {label:"Storage",   cls:"d-storage"},
+  security: {label:"Security",  cls:"d-security"},
+  network:  {label:"Network",   cls:"d-network"},
+  database: {label:"Database",  cls:"d-database"},
+  mgmt:     {label:"Management",cls:"d-mgmt"},
+  containers:{label:"Containers",cls:"d-containers"},
+  appint:   {label:"App Integration",cls:"d-appint"},
+};
+
+const typeLabel = {sandbox:"Sandbox lab", core:"Core lab", troubleshoot:"Troubleshooting", pro:"Professional"};
+const typeClass = {sandbox:"type-sandbox", core:"type-core", troubleshoot:"type-troubleshoot", pro:"type-pro"};
+
+function renderLabs(filter) {
+  const grid = document.getElementById("labsGrid");
+  const filtered = filter === "all" ? labs : labs.filter(l => l.domain === filter);
+  grid.innerHTML = filtered.map((lab,i) => {
+    const dm = domainMeta[lab.domain];
+    return `<div class="lab-card reveal" style="transition-delay:${(i%6)*0.05}s">
+      <span class="lab-domain-tag ${dm.cls}">${dm.label}</span>
+      <div class="lab-title">${lab.title}</div>
+      <span class="lab-type-badge ${typeClass[lab.type]}">${typeLabel[lab.type]}</span>
+    </div>`;
+  }).join("");
+  observeReveal();
+}
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderLabs(btn.dataset.filter);
+  });
+});
+
+renderLabs("all");
+
+// Scroll reveal
+function observeReveal() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
+  }, {threshold: 0.1});
+  document.querySelectorAll(".reveal:not(.visible)").forEach(el => observer.observe(el));
+}
+observeReveal();
+</script>
+</body>
+</html>
